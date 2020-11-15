@@ -1,6 +1,6 @@
 #from runner import account_credentials
 import sqlite3
-connection=sqlite3.connect('social media/temp.db',check_same_thread=False)
+connection=sqlite3.connect('temp.db',check_same_thread=False)
 
 
 def signup(name,password,branch,semester):
