@@ -1,0 +1,51 @@
+{% extends "login_home.html" %}
+    {% block title %}
+        <title>Resources</title>
+    {% endblock %}
+    
+    {% block content %}
+        {% if subject==None %}
+        
+            {% for course in courses %}
+                <center>
+                <ul class="list-group">
+                    <a href='{{ url_for( 'resources',page_num=1 , subject = course[0]) }}'" class="list-group-item list-group-item-action">{{ course[0] }}</a>
+                </ul>
+                </center>    
+            {% endfor %}
+
+        {% endif %}   
+
+        {% if subject!=None %}
+        
+              {% for resource in resources  %}
+            </br>
+              <center>
+              <div class="card text-white bg-dark mb-3">
+                <div class="card-header">
+                 Link : {{resource[0]}}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Description</h5>
+                  <p class="card-text">{{resource[1]}}</p>
+    
+                </div>
+              </div></br>
+              </center>
+              {% endfor %}  
+            </br></br>
+        <form action='#' method='POST'>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Resource Link</label>
+            <input type="link" class="form-control" id="exampleFormControlInput1" placeholder="Post the link here" name='link'>
+        </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='text'></textarea>
+            </div>
+            <button  class="btn btn-primary" type="submit">Submit</button>
+        </form>
+        {% endif %}
+
+
+    {% endblock %}                             

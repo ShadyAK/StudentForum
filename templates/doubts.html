@@ -1,0 +1,75 @@
+{% extends "login_home.html" %}
+    {% block title %}
+        <title>Doubts</title>
+    {% endblock %}
+    
+    {% block content %}
+        {% if subject==None %}
+        {% for course in courses %}
+            <center>
+            <ul class="list-group">
+                <a href='{{ url_for( "doubts",doubt_id = None , subject = course[0]) }}' class="list-group-item list-group-item-action">{{ course[0] }}</a>
+            </ul>
+            </center>    
+        {% endfor %}
+        {% endif %}        
+        {% if subject  != None and doubt_id == None %}
+            {% for doubt in doubts%}
+        </br>
+            <center>
+                <div class="card">
+                    <div class="card-body">
+                      <p class="card-text">{{doubt[1]}}</p>
+                      <a href="{{ url_for('doubts',doubt_id = doubt[0], subject = subject) }}" class="btn btn-primary">@_@</a>
+                    </div>
+                  </div>
+                </center>
+            </br></br>
+            {% endfor %}
+            {% if account_type=='student' %}
+                <form action='#' method='POST'>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Post Your Doubt</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name='doubt' rows="3"></textarea>
+                  </div>
+                <button  class="btn btn-primary" type="submit">Submit</button>
+                </form>  
+            {% endif %}         
+        {% endif %}
+
+        {% if subject  != None and doubt_id != None %}
+
+                
+        <center>
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                  <p class="card-text"> {{cur_doubt[0]}}</p>
+                </div>
+              </div>
+            </center>        
+
+            {% for comment in comments%}
+            <div class="card border-info mb-3" >
+
+                <div class="card-body text-info">
+                  <p class="card-text">{{comment[0]}}</p>
+                </div>
+                
+            {% endfor %}
+            
+            {% if account_type=='student' %}
+                <form action='#' method='POST'>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Reply</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name='reply' rows="3"></textarea>
+                  </div>
+                <button  class="btn btn-primary" type="submit">Submit</button>
+                </form>  
+            {% endif %}    
+
+        {% endif %}        
+
+
+    {% endblock %}    
+
+

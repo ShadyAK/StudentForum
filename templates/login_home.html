@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>{{user}}</title>
+
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+      <img src="https://imgflip.com/s/meme/Doge.jpg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      {{user}}
+      </a>
+      <a class="navbar-brand" href='{{url_for("doubts")}}' >
+        Discussion
+      </a>
+      <a class="navbar-brand" href='#' >
+        Events
+      </a>
+      <a class="navbar-brand" href='{{url_for("resources")}}' >
+        Resources
+      </a>
+      <a class="navbar-brand" href='#' >
+        Chill Room
+      </a>
+      <a class="navbar-brand" href='{{url_for("logout")}}' >
+        LogOut
+      </a>
+      
+  </nav>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
