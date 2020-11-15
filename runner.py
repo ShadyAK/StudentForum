@@ -53,6 +53,7 @@ def signup_page(account='student'):
             if dm.signup(username,password,branch,semester)==True:
                 session['username']=username
                 session['password']=password
+                session['account_type'] = 'student'
                 return redirect(url_for('account_home'))
         else:
             if "username" in session:
@@ -70,6 +71,7 @@ def signup_page(account='student'):
                 #print('ohhh yesss')
                 session['username']=username
                 session['password']=password
+                session['account_type']='teacher'
                 return redirect(url_for('account_home'))
             else:
                 return "Something went wrong"    
