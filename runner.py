@@ -155,4 +155,4 @@ def doubts(subject=None , doubt_id=None):
 ###################################################################################################################     
 if __name__=="__main__":
     #database.create_all()
-    app.run()    
+    app.run(debug=True)    
