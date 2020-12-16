@@ -18,20 +18,60 @@
       <a class="navbar-brand" href='{{url_for("doubts")}}' >
         Discussion
       </a>
-      <a class="navbar-brand" href='#' >
-        Events
-      </a>
       <a class="navbar-brand" href='{{url_for("resources")}}' >
         Resources
-      </a>
-      <a class="navbar-brand" href='#' >
-        Chill Room
       </a>
       <a class="navbar-brand" href='{{url_for("logout")}}' >
         LogOut
       </a>
+    </nav>
+      {% if account_type=='teacher' %}
+
       
-  </nav>
+
+
+        <center>
+          <div class="card text-white bg-dark mb-3">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Generate Student Report</h5>
+
+            </div>
+            <form id="login_form" action='#' method="POST">
+
+            <center>
+            <label for="Branch">Choose Branch</label>
+            <select name="branch" id="branch-selection">
+            <option value="C.S.E">C.S.E</option>
+            <option value="I.T">I.T</option>
+            <option value="E.C">E.C</option>
+            <option value="Mech">Mech</option>
+            </select> </br>
+            <label for="Sem">Choose Sem</label>
+            <select name="sem" id="sem-selection">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+            </center>
+              <center>
+              <a onclick="document.getElementById('login_form').submit();" class="submit">Generate</a>
+              </center>
+              <!--<p class="forgot" align="center"><a href="#">Forgot Password?</p>-->
+            </form> 
+      </center>
+
+
+        
+      {% endif %}
+
+  
   {% block content %}
   {% endblock %}
 </body>

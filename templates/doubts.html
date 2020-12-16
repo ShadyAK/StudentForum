@@ -46,15 +46,31 @@
                   <p class="card-text"> {{cur_doubt[0]}}</p>
                 </div>
               </div>
-            </center>        
+              {% if account_type=='student' %}
+                {% if upvote_status ==True%}
+                <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Upvoted</a>
+                {% endif %}
+                {% if upvote_status == False %}
+                <button type="button" class="btn btn-info" onclick="window.location.href='{{ url_for( 'upvote_doubt' , subject=subject,doubt_id=doubt_id ) }}';">Upvote Doubt</button>
+                {% endif %}
 
-            {% for comment in comments%}
+              {% endif %}
+            </center>
+            {% for i in range(comments|length)%}
             <div class="card border-info mb-3" >
 
                 <div class="card-body text-info">
-                  <p class="card-text">{{comment[0]}}</p>
-                </div>
-                
+                  <p class="card-text">{{comments[i][0]}}</p>
+                {% if account_type=='student' %}  
+                  {% if comments_liked[i] == 0 %} 
+                    <button onclick="window.location.href='{{ url_for( 'like_comment' , subject=subject,doubt_id=doubt_id ,reply_id=comments[i][1]) }}';" type="button" class="btn btn-info">Like</button>
+                    </div>
+                  {% endif %}
+                  {% if comments_liked[i] == 1 %}
+                  <button  type="button" class="btn btn-info" aria-disabled="true">Liked</button>
+                  </div>
+                  {% endif %}
+                {% endif %}  
             {% endfor %}
             
             {% if account_type=='student' %}
