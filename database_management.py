@@ -1,6 +1,7 @@
 #from runner import account_credentials
 import sqlite3
-connection=sqlite3.connect('temp.db',check_same_thread=False)
+from collections import Counter
+connection=sqlite3.connect('social media/temp.db',check_same_thread=False)
 
 
 def signup(name,password,branch,semester):
@@ -98,7 +99,7 @@ def handle_reply(task ,doubt_id, reply=None ,reply_by=None,subject=None,time=Non
         VALUES(?,?,?,?,?)""",(reply,reply_by,subject,doubt_id,time))
         connection.commit()
     if task == 'get_reply':
-        cur.execute('SELECT reply FROM reply WHERE doubt_id=(?)',(doubt_id,))    
+        cur.execute('SELECT reply,reply_id FROM reply WHERE doubt_id=(?)',(doubt_id,))    
         result = cur.fetchall()
         return result
 def get_doubt(doubt_id):
@@ -107,3 +108,43 @@ def get_doubt(doubt_id):
     result = cur.fetchone()
     return result         
                 
+def check_upvote(username,doubt_id):
+    cur = connection.cursor()
+    cur.execute('SELECT * FROM like_doubt WHERE doubt_id=(?) AND liker_id=(?)',(doubt_id,username))
+    result = cur.fetchone()
+    if result is None:
+        return False
+    else:
+        return True                    
+
+def upvote_doubt(username,doubt_id):
+    cur = connection.cursor()
+    cur.execute('INSERT INTO like_doubt VALUES(?,?)',(doubt_id,username))
+    connection.commit()
+    return True
+    
+def like_comment(username,reply_id):
+    cur = connection.cursor()
+    cur.execute('INSERT INTO like_reply VALUES(?,?)',(reply_id,username))
+    connection.commit()
+
+def comment_like_status(username,comments):    
+    cur = connection.cursor()
+    like_status = []
+    for comment in comments:
+        cur.execute("SELECT * FROM like_reply WHERE liker_id=(?) and reply_id=(?)",(username,comment[1]))
+        result = cur.fetchone()
+        if result:
+            like_status.append(1)
+        else:
+            like_status.append(0)
+    return like_status             
+
+def get_student_contributions(branch=None,semester=None):
+    cur = connection.cursor()
+    cur.execute('SELECT asked_by,count(*) FROM like_doubt LEFT JOIN discussion ON like_doubt.doubt_id = discussion.doubt_id LEFT JOIN student_details ON discussion.asked_by=student_details.username GROUP BY asked_by HAVING (branch=(?) and semester=(?)) ;',(branch,semester))    
+    result1=Counter(dict(cur.fetchall()))
+    cur.execute('SELECT reply_by,count(*) FROM like_reply LEFT JOIN reply ON like_reply.reply_id = reply.reply_id LEFT JOIN student_details ON reply.reply_by=student_details.username GROUP BY reply_by HAVING(branch=(?) and semester=(?));',(branch,semester))    
+    result2=Counter(dict(cur.fetchall()))
+    result = result1+result2
+    return result

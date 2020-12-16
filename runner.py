@@ -4,7 +4,7 @@ from datetime import datetime,timedelta
 import database_management as dm
 
 app=Flask(__name__)
-app.secret_key='emiwaybantai'
+app.secret_key='asdkjfbaskdljfouaksdhfklsadhlfhsdlifhsk'
 #app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///users.sqlite3'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.permanent_session_lifetime=timedelta(days=5)
@@ -33,7 +33,7 @@ def login_page():
             #print(account_type)
             return redirect(url_for('account_home'))
         else:
-            flash(f"<h5><center>either account doesnt exists or password is wrong boi</center></h5>")
+            flash(f"<h5><center>either account doesnt exists or password is wrong </center></h5>")
             return redirect(url_for('login_page')) 
     else:
         if "username" in session:
@@ -48,12 +48,12 @@ def signup_page(account='student'):
             username=request.form['username']
             password=request.form['password']
             branch    =request.form['branch']
-            semester  =request.form['semester']
-
+            semester  =request.form['sem']
+            print(branch , semester)
             if dm.signup(username,password,branch,semester)==True:
                 session['username']=username
                 session['password']=password
-                session['account_type'] = 'student'
+                session['account_type']='student'
                 return redirect(url_for('account_home'))
         else:
             if "username" in session:
@@ -78,13 +78,20 @@ def signup_page(account='student'):
         else:
             return render_template('teachers_signup.html') 
 
-@app.route("/user")
+@app.route("/user",methods=["POST","GET"])
 def account_home():
-    if "username" in session:
-        user=session['username']
-        return  render_template('login_home.html',user=user)   
-    else:
-        return redirect(url_for("login_page"))
+    if request.method == "POST":
+        branch    = request.form['branch']
+        semester  = request.form['sem']
+        return dict(dm.get_student_contributions(branch,semester))
+    if request.method == "GET":
+        if "username" in session:
+            user=session['username']
+            account_type = session['account_type']
+            return  render_template('login_home.html',user=user,account_type=account_type)   
+        else:
+            return redirect(url_for("login_page"))
+    
 
 @app.route("/logout")
 def logout():
@@ -127,16 +134,24 @@ def doubts(subject=None , doubt_id=None):
     doubts=None
     comments=None
     cur_doubt=None
+    upvote_status=None
+    comments_liked = None
+
+    
+        
     if request.method=='GET':
         if subject is not None:
             doubts= dm.get_questions(subject)
             #print(doubts)
         if doubt_id is not None:
             cur_doubt=dm.get_doubt(doubt_id)
+            upvote_status=dm.check_upvote(session['username'],doubt_id)
             comments = dm.handle_reply('get_reply',doubt_id)
+            comments_liked = dm.comment_like_status(session['username'],comments)
+            print(comments_liked)
             print(comments)
-            print(cur_doubt)
-        return render_template('doubts.html',subject=subject,courses=courses_enrolled,doubts=doubts,doubt_id=doubt_id,account_type=session['account_type'],comments=comments,cur_doubt=cur_doubt)  
+            #print(cur_doubt)
+        return render_template('doubts.html',subject=subject,courses=courses_enrolled,doubts=doubts,doubt_id=doubt_id,account_type=session['account_type'],comments=comments,cur_doubt=cur_doubt,upvote_status=upvote_status,comments_liked=comments_liked)  
 
     if request.method=='POST':
         user = session['username']
@@ -153,6 +168,30 @@ def doubts(subject=None , doubt_id=None):
             current_time = now.strftime("%D %H:%M:%S")
             dm.handle_reply('insert_reply' ,doubt_id,reply,user, subject,current_time)
             return redirect(url_for('doubts',subject=subject,doubt_id=doubt_id))
+
+@app.route('/upvote/<subject>/<int:doubt_id>')  
+def upvote_doubt(subject=None,doubt_id=None):
+    cond = dm.check_upvote(session['username'],doubt_id)
+
+    if cond == False:
+        dm.upvote_doubt(session['username'],doubt_id)  
+    return redirect(url_for('doubts',subject=subject,doubt_id=doubt_id))      
+
+@app.route('/like_comment/<subject>/<int:doubt_id>/<int:reply_id>')
+def like_comment(subject,doubt_id,reply_id):
+
+    dm.like_comment(session['username'],reply_id)
+    return redirect(url_for('doubts',subject=subject,doubt_id=doubt_id))
+
+@app.route('/test')
+def get_reports():
+    result = dict(dm.get_student_contributions(branch="C.S.E",semester=5))
+    
+    return "done"
+
+
+
+
         
 ###################################################################################################################     
 if __name__=="__main__":

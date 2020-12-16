@@ -98,3 +98,29 @@ reply="""CREATE TABLE IF NOT EXISTS reply(
 
 cur.execute(reply)
 connection.commit()
+
+like_doubt ="""CREATE TABLE IF NOT EXISTS like_doubt(
+             
+             doubt_id INTEGER ,
+             liker_id TEXT ,
+
+             FOREIGN KEY(doubt_id) REFERENCES discussion(doubt_id),
+             FOREIGN KEY(liker_id) REFERENCES student_details(usename)
+             ON DELETE CASCADE  
+)"""
+
+cur.execute(like_doubt)
+connection.commit()
+
+like_reply = """CREATE TABLE IF NOT EXISTS like_reply(
+             
+             reply_id INTEGER ,
+             liker_id TEXT ,
+
+             FOREIGN KEY(reply_id) REFERENCES reply(reply_id),
+             FOREIGN KEY(liker_id) REFERENCES student_details(usename)
+             ON DELETE CASCADE  
+)"""
+
+cur.execute(like_reply)
+connection.commit()
