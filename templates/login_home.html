@@ -25,7 +25,7 @@
         LogOut
       </a>
     </nav>
-      {% if account_type=='teacher' %}
+      {% if account_type=='teacher' and 'user' in request.url_rule.rule %}
 
       
 
