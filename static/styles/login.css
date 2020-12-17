@@ -121,8 +121,7 @@ font-family: 'Ubuntu', sans-serif;
     border: 0;
     padding: 10px 40px;
     font-weight: bold;
-    margin: auto;
-    margin-top: 12px;
+    margin: 12px auto 8px;
     font-size: 13px;
     box-shadow: 0 12px 12px -8px rgba(170, 0, 170, 0.4);
 }
