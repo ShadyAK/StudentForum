@@ -10,18 +10,18 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
-      <img src="https://imgflip.com/s/meme/Doge.jpg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    <nav class="navbar">
+      <a class="navbar-brand" href="/">
+      <img src="{{ url_for('static',filename='images/icon.svg') }}" class="d-inline-block align-top" alt="" loading="lazy">
       {{user}}
       </a>
-      <a class="navbar-brand" href='{{url_for("doubts")}}' >
+      <a href='{{url_for("doubts")}}' >
         Discussion
       </a>
-      <a class="navbar-brand" href='{{url_for("resources")}}' >
+      <a href='{{url_for("resources")}}' >
         Resources
       </a>
-      <a class="navbar-brand" href='{{url_for("logout")}}' >
+      <a href='{{url_for("logout")}}' >
         LogOut
       </a>
     </nav>

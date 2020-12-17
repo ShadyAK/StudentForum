@@ -10,12 +10,12 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-    <img src="https://imgflip.com/s/meme/Doge.jpg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+  <nav class="navbar">
+    <a class="navbar-brand" href="/">
+    <img src="{{ url_for('static',filename='images/icon.svg') }}" class="d-inline-block align-top" alt="" loading="lazy">
     Student Forum
     </a>
-    <a class="navbar-brand" href='{{url_for("signup_page",account="teacher")}}' >
+    <a href='{{url_for("signup_page",account="teacher")}}' >
       For Teachers
     </a>
 </nav>
@@ -29,6 +29,7 @@
     <center>
     <label for="Branch">Choose Branch</label>
     <select name="branch" id="branch-selection">
+    <option value="" selected disabled>Select Branch</option>
     <option value="C.S.E">C.S.E</option>
     <option value="I.T">I.T</option>
     <option value="E.C">E.C</option>
@@ -36,6 +37,7 @@
     </select> </br>
     <label for="Sem">Choose Sem</label>
     <select name="sem" id="sem-selection">
+      <option value="" selected disabled>Select Semester</option>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -47,10 +49,12 @@
   </select>
     </center>
     
-      <a onclick="document.getElementById('login_form').submit();" class="submit" align="center">Sign in</a>
+      <!-- <a onclick="document.getElementById('login_form').submit();" class="submit" align="center">Sign in</a> -->
+      <button type="submit" onclick="document.getElementById('login_form').submit();" class="submit" align="center">Sign Up</button>
       <!--<p class="forgot" align="center"><a href="#">Forgot Password?</p>-->
     </form>        
                 
+    <a href="/login_page" class="main-signup">Already have an account? Login</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
