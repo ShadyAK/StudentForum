@@ -10,16 +10,16 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-    <img src="https://imgflip.com/s/meme/Doge.jpg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+  <nav class="navbar">
+    <a class="navbar-brand" href="/user">
+    <img src="{{ url_for('static',filename='images/icon.svg') }}" class="d-inline-block align-top" alt="" loading="lazy">
     Student Forum
     </a>
-    <a class="navbar-brand" href='{{url_for("signup_page",account="student")}}' >
+    <a href='{{url_for("signup_page",account="student")}}' >
       Sign Up
     </a>
 </nav>
-  <div class="main"><br><br>
+  <div class="main">
     {% with messages=get_flashed_messages()%}
       {% if messages%}
         {% for msg in messages%}
@@ -27,18 +27,20 @@
         {% endfor %}
       {% endif%}
     {% endwith %}      
-    <p class="sign" align="center">Sign in to your Student Forum</p>
+    <p class="sign" align="center">Login</p>
     
     <form id="login_form" action='#' method="post">
       <input class="un " type="text" align="center" placeholder="Username" name='username'>
       <input class="pass" type="password" align="center" placeholder="Password" name='password'>
       
 
-      <a onclick="document.getElementById('login_form').submit();" class="submit" align="center">Sign in</a>
+      <!-- <a onclick="document.getElementById('login_form').submit();" class="submit" align="center">Sign in</a> -->
+      <button type="submit" onclick="document.getElementById('login_form').submit();" class="submit" align="center">Login</button>
       <!--<p class="forgot" align="center"><a href="#">Forgot Password?</p>-->
         
     </form>        
                 
+    <a href="/signup_page/student" class="main-signup">Don't have an account? Sign Up</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

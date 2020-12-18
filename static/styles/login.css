@@ -1,42 +1,86 @@
+:root {
+    --main-background-light: #FFF5FF;
+    --main-background-dark: #F3EBF6;
+    --main-gray: #333333;
+    --main-purple-dark: #885588;
+}
+
 body {
-    background-color: #F3EBF6;
-    font-family: 'Ubuntu', sans-serif;
+    background-color: var(--main-background-dark);
+    font-family: 'Ubuntu', 'Roboto', sans-serif;
+    color: var(--main-gray);
+}
+
+.navbar {
+    background-color: var(--main-background-light);
+    box-shadow: 0 0 32px rgba(119, 51, 119, 0.2);
+    padding: 0.5rem 3rem;
+    font-size: 1.6em;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #a7a;
+}
+
+.navbar-brand {
+    color: #BBAAFF;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+}
+
+.navbar-brand:hover {
+    color: #CCBBFF;
+}
+
+.navbar-brand img {
+    border-radius: 100px;
+    box-shadow: 0 12px 16px -8px rgba(221, 85, 255, 0.60);
+    margin-right: 24px;
 }
 
 .main {
-    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-background-light);
     width: 400px;
-    height: 400px;
     margin: 7em auto;
-    border-radius: 1.5em;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    padding: 24px;
+    border-radius: 40px;
+    box-shadow: 0 16px 32px rgba(119, 51, 119, 0.2);
 }
 
+form#login_form {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .sign {
-    padding-top: 40px;
-    color: #8C55AA;
-    font-family: 'Ubuntu', sans-serif;
+    /* padding-top: 40px; */
+    color: var(--main-gray);
     font-weight: bold;
-    font-size: 23px;
+    font-size: 2.4em;
 }
 
 .un {
-width: 76%;
+width: 60%;
 color: rgb(38, 50, 56);
-font-weight: 700;
+/* font-weight: 700; */
 font-size: 14px;
 letter-spacing: 1px;
-background: rgba(136, 126, 126, 0.04);
+background: transparent;
 padding: 10px 20px;
 border: none;
-border-radius: 20px;
+border-radius: 100px;
 outline: none;
 box-sizing: border-box;
-border: 2px solid rgba(0, 0, 0, 0.02);
-margin-bottom: 50px;
-margin-left: 46px;
+border: 2px solid #DDDDDD;
+margin: auto;
 text-align: center;
-margin-bottom: 27px;
+margin-bottom: 20px;
 font-family: 'Ubuntu', sans-serif;
 }
 
@@ -45,22 +89,21 @@ form.form1 {
 }
 
 .pass {
-        width: 76%;
+        width: 60%;
 color: rgb(38, 50, 56);
-font-weight: 700;
+/* font-weight: 700; */
 font-size: 14px;
 letter-spacing: 1px;
-background: rgba(136, 126, 126, 0.04);
+background: transparent;
 padding: 10px 20px;
 border: none;
-border-radius: 20px;
+border-radius: 100px;
 outline: none;
 box-sizing: border-box;
-border: 2px solid rgba(0, 0, 0, 0.02);
-margin-bottom: 50px;
-margin-left: 46px;
+border: 2px solid #DDDDDD;
+margin: auto;
 text-align: center;
-margin-bottom: 27px;
+margin-bottom: 20px;
 font-family: 'Ubuntu', sans-serif;
 }
 
@@ -76,29 +119,36 @@ font-family: 'Ubuntu', sans-serif;
     color: #fff;
     background: linear-gradient(to right, #9C27B0, #E040FB);
     border: 0;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-family: 'Ubuntu', sans-serif;
-    margin-left: 35%;
+    padding: 10px 40px;
+    font-weight: bold;
+    margin: 12px auto 8px;
     font-size: 13px;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 12px 12px -8px rgba(170, 0, 170, 0.4);
 }
 
 .forgot {
-    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
     color: #E1BEE7;
     padding-top: 15px;
 }
 
 a {
-    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
     color: #E1BEE7;
     text-decoration: none
 }
 
+.main-signup {
+    text-decoration: none;
+    text-align: center;
+    color: #885588;
+}
+
+.main-signup:hover {
+    color: #a7a;
+}
+
 @media (max-width: 600px) {
     .main {
-        border-radius: 0px;
+        border-radius: 0;
     }}
